@@ -1,6 +1,6 @@
 let quotes = [
     {
-        Text: "", category: ""
+        text: "", category: ""
     }
 ]
 
