@@ -27,6 +27,10 @@ function displayAllQuotes() {
     });
 }
 function createAddQuoteForm(){
+const text = newQuoteText.value.trim() 
+const category = newQuoteCategory.value.trim()
+
 
 }
+localStorage.setItem('quote', JSON.stringify(quotes))
 newQuoteButton.addEventListener("click", showRandomQuote);
