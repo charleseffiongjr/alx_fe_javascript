@@ -62,5 +62,17 @@ function exportQuotes() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+  function updateDOM() {
+    let quotesHTML = `
+      <h1>Dynamic Quote Generator</h1>
+      <div>
+          <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+          <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+          <button onclick="addQuote()">Add Quote</button>
+      </div>
+      <button id="newQuote">Show New Quote</button>
+      <button id="exportQuotes">Export Quotes to JSON</button>
+    `;
+  }
 
 newQuoteButton.addEventListener("click", showRandomQuote);
