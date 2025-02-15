@@ -29,3 +29,4 @@ function displayAllQuotes() {
 function createAddQuoteForm(){
 
 }
+newQuoteButton.addEventListener("click", showRandomQuote);
