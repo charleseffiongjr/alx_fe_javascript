@@ -17,7 +17,7 @@
         <button onclick="addQuote()">Add Quote</button>
       </div>
       <button id="newQuote">Show New Quote</button>
-      <input type="text" id="import-quote" placeholder="import Quotes file">
+      <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
       <button id="exportQuotes">Export Quotes to JSON</button>
   </div>
   
