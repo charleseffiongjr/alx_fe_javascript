@@ -2,6 +2,9 @@ let quotes = [
     { text: "The journey of a thousand miles begins with one step.", category: "Motivation"},
     { text: "I'm not lazy, I'm on energy-saving mode.", category: "Humor"}
 ];
+
+quotes = JSON.parse(localStorage.getItem('quotes')) || [];
+
 const quoteDisplay = document.getElementById("quoteDisplay");
 const newQuoteButton = document.getElementById("newQuote");
 const newQuoteText = document.getElementById("newQuoteText");
@@ -30,7 +33,7 @@ function createAddQuoteForm(){
 const text = newQuoteText.value.trim() 
 const category = newQuoteCategory.value.trim()
 
-
-}
 localStorage.setItem('quote', JSON.stringify(quotes))
+}
+
 newQuoteButton.addEventListener("click", showRandomQuote);
