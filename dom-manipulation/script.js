@@ -36,4 +36,31 @@ const category = newQuoteCategory.value.trim()
 localStorage.setItem('quote', JSON.stringify(quotes))
 }
 
+function exportQuotes() {
+    if (quotes.length === 0) {
+      alert("No quotes available to export.");
+      return;
+    }
+  
+    // Convert Quotes Array to JSON String
+    const quotesJSON = JSON.stringify(quotes, null, 2);
+  
+    // Create Blob from JSON String
+    const blob = new Blob([quotesJSON], { type: "application/json" });
+  
+    // Create Download Link
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "quotes.json";
+  
+    // Trigger Download
+    document.body.appendChild(a);
+    a.click();
+  
+    // Clean up
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
 newQuoteButton.addEventListener("click", showRandomQuote);
