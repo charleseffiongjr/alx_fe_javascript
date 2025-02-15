@@ -84,6 +84,33 @@ function exportQuotes() {
       alert('Quotes imported successfully!');
     };
     fileReader.readAsText(event.target.files[0]);
-  }
+  };
+
+  
+function populateCategories() {
+  const categoryFilter = document.getElementById("categoryFilter");
+  categoryFilter.innerHTML = '<option value="">Select Category</option>';
+
+  
+  const categories = [...new Set(quotes.map(quote => quote.category))];
+
+
+  categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categoryDropdown.appendChild(option);
+  });
+}
+function filterQuotes(){
+    const selectedCategory = document.getElementById('categoryFilter').value
+
+    localStorage.setItem('selectedCategory', selectedCategory)
+
+    const filteredQuote = selectedCategory 
+    ? quotes.filter (quote => quote.category === delectdCategory)
+    : quotes;
+}
+
 
 newQuoteButton.addEventListener("click", showRandomQuote);
