@@ -62,6 +62,7 @@ function exportQuotes() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+  
   function updateDOM() {
     let quotesHTML = `
       <h1>Dynamic Quote Generator</h1>
