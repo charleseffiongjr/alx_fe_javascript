@@ -5,7 +5,9 @@ let quotes = [
 ]
 
 function showRandomQuote(){
+    const randomIndex = Math.floor(Math.random() * quotes.length);
     random.innerHTML = "" 
+
 }
 function createAddQuoteForm(){
 
