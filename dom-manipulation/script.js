@@ -299,7 +299,7 @@ async function syncQuotes(newQuote) {
         console.error('Error posting quote:', error);
     }
 }
-
+setInterval(fetchQuotes, 10000);
 // Event Listeners
 document.querySelector("button[onclick='addQuote()']").addEventListener("click", addQuote);
 
