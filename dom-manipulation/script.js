@@ -282,7 +282,7 @@ async function fetchQuotesFromServer() {
     }
 }
 
-async function postQuote(newQuote) {
+async function syncQuote(newQuote) {
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
