@@ -267,7 +267,7 @@ function filterQuotes() {
     });
     quoteDisplay.innerHTML = quotesHTML;
 }
-async function fetchQuotes() {
+async function fetchQuotesFromServer() {
     try {
         const response = await fetch(API_URL);
         const data = await response.json();
