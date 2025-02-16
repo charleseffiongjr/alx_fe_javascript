@@ -128,6 +128,7 @@ let quotes = [
 
 
 const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+
 function showNotification(message) {
     const notification = document.getElementById("notification");
     notification.innerText = message;
@@ -213,6 +214,7 @@ function resolveConflict(choice) {
         });
     }
     closeConflictModal();
+    showNotification("Quotes synced with server!");
 }
 // Add New Quote
 function addQuote() {
@@ -325,11 +327,11 @@ async function fetchQuotesFromServer() {
         const isDifferent = JSON.stringify(serverQuotes) !== JSON.stringify(quotes);
         if (isDifferent) {
             console.log("Conflict detected! Overriding local data with server's version.");
-            quotes = serverQuotes;
-            displayAllQuotes();
+            showConflictModal(serverQuotes)
+        } else {
+            showNotification('Quotes synced with server')
         }
-    
-    
+        
     } catch (error) {
         console.error('Error fetching quotes:', error);
     }
