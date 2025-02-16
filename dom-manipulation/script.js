@@ -125,7 +125,17 @@ let quotes = [
     { text: "The journey of a thousand miles begins with one step.", category: "Motivation"},
     { text: "I'm not lazy, I'm on energy-saving mode.", category: "Humor"}
 ];
+
+
 const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    notification.innerText = message;
+    notification.style.display = "block";
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 3000);
+}
 // Load Quotes from Local Storage
 quotes = JSON.parse(localStorage.getItem('quotes')) || [];
 
@@ -164,11 +174,46 @@ function displayAllQuotes() {
         `;
     });
     
-    // quoteDisplay.innerHTML = ""; // Clear existing quotes
+    quoteDisplay.innerHTML = ""; // Clear existing quotes
 displayAllQuotes();          // Re-populate with updated quotes
 
 }
+function showConflictModal(serverQuotes) {
+    const conflictModal = document.getElementById("conflictModal");
+    const conflictDetails = document.getElementById("conflictDetails");
 
+    conflictDetails.innerHTML = '';
+    serverQuotes.forEach((serverQuote, index) => {
+        const localQuote = quotes[index];
+        conflictDetails.innerHTML += `
+            <div class="conflict-item">
+                <h3>Conflict ${index + 1}</h3>
+                <p><strong>Local:</strong> ${localQuote?.text || 'N/A'}</p>
+                <p><strong>Server:</strong> ${serverQuote.text}</p>
+            </div>
+        `;
+    });
+
+    conflictModal.style.display = "block";
+}
+
+function closeConflictModal() {
+    document.getElementById("conflictModal").style.display = "none";
+}
+
+function resolveConflict(choice) {
+    if (choice === 'local') {
+        console.log("User chose to keep local version.");
+        showNotification("Kept Local Version");
+    } else if (choice === 'server') {
+        console.log("User chose to keep server version.");
+        fetchQuotes().then(() => {
+            showNotification("Overwritten with Server Version");
+            displayAllQuotes();
+        });
+    }
+    closeConflictModal();
+}
 // Add New Quote
 function addQuote() {
     const text = newQuoteText.value.trim();
@@ -272,11 +317,19 @@ async function fetchQuotesFromServer() {
         const response = await fetch(API_URL);
         const data = await response.json();
         // Transform the response to fit the quotes format
-        quotes = data.map(post => ({
+        serverQuotes = serverData.map(post => ({
             text: post.title,
             category: "General"
         }));
-        displayAllQuotes();
+
+        const isDifferent = JSON.stringify(serverQuotes) !== JSON.stringify(quotes);
+        if (isDifferent) {
+            console.log("Conflict detected! Overriding local data with server's version.");
+            quotes = serverQuotes;
+            displayAllQuotes();
+        }
+    
+    
     } catch (error) {
         console.error('Error fetching quotes:', error);
     }
@@ -300,6 +353,7 @@ async function syncQuotes(newQuote) {
     }
 }
 setInterval(fetchQuotes, 10000);
+window.onload = fetchQuotes;
 // Event Listeners
 document.querySelector("button[onclick='addQuote()']").addEventListener("click", addQuote);
 

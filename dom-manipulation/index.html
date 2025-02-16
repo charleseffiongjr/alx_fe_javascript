@@ -7,7 +7,19 @@
   <title>Dynamic Quote Generator</title>
 </head>
 <body>
- 
+  <div id="notification" class="notification"></div>
+
+  <div id="conflictModal" class="modal">
+    <div class="modal-content">
+      <h2>Conflict Detected!</h2>
+      <p>Which version would you like to keep?</p>
+      <div id="conflictDetails"></div>
+      <button onclick="resolveConflict('local')">Keep Local Version</button>
+      <button onclick="resolveConflict('server')">Keep Server Version</button>
+      <button onclick="closeConflictModal()">Cancel</button>
+    </div>
+  </div>
+
   <div id="quoteDisplay">
     <h1>Dynamic Quote Generator</h1>
     <div>
